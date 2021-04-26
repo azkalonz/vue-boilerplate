@@ -68,17 +68,23 @@ export default {
     getUsers: function (event) {
       this.loading = true;
       if (this.$route.params.id == null) {
-        http.get("/users").then((resp) => {
-          delete resp.data.meta;
-          const users = [];
+        http
+          .get("/users")
+          .then((resp) => {
+            delete resp.data.meta;
+            const users = [];
 
-          Object.keys(resp.data).map((key) => {
-            users.push(resp.data[key]);
+            Object.keys(resp.data).map((key) => {
+              users.push(resp.data[key]);
+            });
+
+            this.$store.commit("setUsers", users);
+            this.loading = false;
+          })
+          .catch((error) => {
+            alert(error);
+            this.loading = false;
           });
-
-          this.$store.commit("setUsers", users);
-          this.loading = false;
-        });
       } else {
         http.get("/user/" + this.$route.params.id).then(({ data }) => {
           this.user = data;

@@ -5,6 +5,12 @@
       <router-link to="/users">Users</router-link>
     </div>
     <router-view />
+    <footer style="padding: 40px 0">
+      <center>
+        &copy; Copyright
+        {{ new Date().getFullYear() }}
+      </center>
+    </footer>
   </div>
 </template>
 
